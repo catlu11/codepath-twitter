@@ -34,9 +34,14 @@
     if (self.tweet.retweeted) {
         [self.retweetButton setImage:[UIImage imageNamed: @"retweet-icon-green"] forState:UIControlStateNormal];
     }
+    else {
+        [self.retweetButton setImage:[UIImage imageNamed: @"retweet-icon"] forState:UIControlStateNormal];
+    }
     if (self.tweet.favorited) {
-//        cell.likeButton.imageView.image = [UIImage imageNamed: @"favor-icon-red"];
         [self.likeButton setImage:[UIImage imageNamed: @"favor-icon-red"] forState:UIControlStateNormal];
+    }
+    else {
+        [self.likeButton setImage:[UIImage imageNamed: @"favor-icon"] forState:UIControlStateNormal];
     }
 }
 

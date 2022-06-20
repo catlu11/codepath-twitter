@@ -11,8 +11,9 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "TweetCell.h"
+#import "ComposeViewController.h"
 
-@interface TimelineViewController () <UITableViewDataSource>
+@interface TimelineViewController () <UITableViewDataSource, ComposeViewControllerDelegate, UITableViewDataSource>
     @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
     @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
@@ -47,6 +48,12 @@
         }
     }];
 }
+
+- (void)didTweet:(Tweet *)tweet {
+    [self.arrayOfTweets insertObject:tweet atIndex:0];
+    [self.timelineTableView reloadData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -62,15 +69,14 @@
     [[APIManager shared] logout];
 }
 
-/*
-#pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UINavigationController *navigationController = [segue destinationViewController];
+    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+    composeController.delegate = self;
 }
-*/
+
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {
     [self fetchTimeline];
 }

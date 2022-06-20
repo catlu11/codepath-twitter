@@ -20,11 +20,13 @@ NS_ASSUME_NONNULL_BEGIN
     @property (weak, nonatomic) IBOutlet UILabel *replyLabel;
     @property (weak, nonatomic) IBOutlet UILabel *retweetLabel;
     @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
-@property (weak, nonatomic) IBOutlet UIButton *replyButton;
-@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
-@property (weak, nonatomic) IBOutlet UIButton *likeButton;
+    @property (weak, nonatomic) IBOutlet UIButton *replyButton;
+    @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+    @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 
-@property (strong, nonatomic) Tweet *tweet;
+    @property (strong, nonatomic) Tweet *tweet;
+
+    - (void)refreshData;
 @end
 
 NS_ASSUME_NONNULL_END

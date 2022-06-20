@@ -181,9 +181,12 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="wNg-Nj-6Fj" id="03H-9l-E2d"/>
+                                            <outlet property="likeButton" destination="ElB-tE-T4i" id="3Hr-Rb-QbT"/>
                                             <outlet property="likesLabel" destination="uQj-bs-O9v" id="x5D-yA-Xo5"/>
                                             <outlet property="profileImageView" destination="KGC-by-1Hj" id="2hU-hg-i5I"/>
+                                            <outlet property="replyButton" destination="LVW-Nh-SMX" id="Z7Y-EZ-Ey7"/>
                                             <outlet property="replyLabel" destination="22L-Tw-Xwu" id="ybh-Ed-gWJ"/>
+                                            <outlet property="retweetButton" destination="Fep-sQ-6RZ" id="iWu-un-7cJ"/>
                                             <outlet property="retweetLabel" destination="05H-BQ-gN3" id="2Ai-Y6-Bgg"/>
                                             <outlet property="screenNameLabel" destination="Cqh-ky-GBo" id="abb-KG-sGE"/>
                                             <outlet property="tweetTextLabel" destination="klk-k1-TTL" id="4uC-lz-Ike"/>

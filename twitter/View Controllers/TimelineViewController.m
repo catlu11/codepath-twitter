@@ -90,6 +90,14 @@
     cell.likesLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
     cell.replyLabel.text = [NSString stringWithFormat:@"%d", tweet.replyCount];
     
+    if (tweet.retweeted) {
+        [cell.retweetButton setImage:[UIImage imageNamed: @"retweet-icon-green"] forState:UIControlStateNormal];
+    }
+    if (tweet.favorited) {
+//        cell.likeButton.imageView.image = [UIImage imageNamed: @"favor-icon-red"];
+        [cell.likeButton setImage:[UIImage imageNamed: @"favor-icon-red"] forState:UIControlStateNormal];
+    }
+    
     NSString *URLString = tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];

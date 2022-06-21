@@ -1,27 +1,39 @@
 //
-//  TweetCell.m
+//  DetailsViewController.m
 //  twitter
 //
-//  Created by Catherine Lu on 6/20/22.
+//  Created by Catherine Lu on 6/21/22.
 //  Copyright © 2022 Emerson Malca. All rights reserved.
 //
 
+#import "DetailsViewController.h"
 #import "TweetCell.h"
-#import "APIManager.h"
 #import "DateTools.h"
+#import "APIManager.h"
+#import "TimelineViewController.h"
 
-@implementation TweetCell
+@interface DetailsViewController ()
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
+@end
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+@implementation DetailsViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    // Set UI elements
+    [self refreshData];
+    
+    // Set user profile image
+    NSString *URLString = self.tweet.user.profilePicture;
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    self.profileImageView.image = [UIImage imageWithData:urlData];
+    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 3;
 }
 
 - (void)refreshData {
-    // Set username and screen name labels
+    // Set screen name and username
     self.userTagLabel.text = self.tweet.user.screenName;
     self.screenNameLabel.text = self.tweet.user.name;
     
@@ -34,14 +46,14 @@
     }
     
     // Set tweet content label
-    self.tweetTextLabel.text = self.tweet.text;
+    self.tweetLabel.text = self.tweet.text;
     
     // Set counts labels
     self.retweetLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
-    self.likesLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
+    self.likeLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];
     self.replyLabel.text = [NSString stringWithFormat:@"%d", self.tweet.replyCount];
     
-    // Update retweet icon
+    // Update retweet button icon
     if (self.tweet.retweeted) {
         [self.retweetButton setImage:[UIImage imageNamed: @"retweet-icon-green"] forState:UIControlStateNormal];
     }
@@ -49,7 +61,7 @@
         [self.retweetButton setImage:[UIImage imageNamed: @"retweet-icon"] forState:UIControlStateNormal];
     }
     
-    // Update favorite icon
+    // Update favorite button icon
     if (self.tweet.favorited) {
         [self.likeButton setImage:[UIImage imageNamed: @"favor-icon-red"] forState:UIControlStateNormal];
     }
@@ -57,7 +69,6 @@
         [self.likeButton setImage:[UIImage imageNamed: @"favor-icon"] forState:UIControlStateNormal];
     }
 }
-
 - (IBAction)didTapRetweet:(id)sender {
     // retweet
     if (self.tweet.retweeted) {
@@ -88,8 +99,7 @@
          }];
     }
 }
-
-- (IBAction)didTapFavorite:(id)sender {
+- (IBAction)didTapLike:(id)sender {
     // favorite
     if (self.tweet.favorited) {
         [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {

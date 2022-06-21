@@ -10,4 +10,5 @@
 
 @interface TimelineViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *timelineTableView;
+- (void)fetchTimeline;
 @end

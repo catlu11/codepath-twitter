@@ -44,9 +44,9 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }
     
     self = [super initWithBaseURL:baseURL consumerKey:key consumerSecret:secret];
-    if (self) {
-        
-    }
+//    if (self) {
+//        
+//    }
     return self;
 }
 
@@ -115,6 +115,16 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
         Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
         completion(tweet, nil);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        completion(nil, error);
+    }];
+}
+
+- (void)getCurrentUser:(void (^)(User *, NSError *))completion {
+    NSString *urlString = @"1.1/account/verify_credentials.json";
+    [self GET:urlString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable userDictionary) {
+        User *user = [[User alloc]initWithDictionary:userDictionary];
+        completion(user, nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completion(nil, error);
     }];

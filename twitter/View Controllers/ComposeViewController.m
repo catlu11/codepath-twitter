@@ -10,6 +10,7 @@
 #import "APIManager.h"
 
 @interface ComposeViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UITextView *composeTextView;
 @end
 
@@ -17,7 +18,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    [[self.composeTextView layer] setBorderColor:[[UIColor blackColor] CGColor]];
+    [[self.composeTextView layer] setBorderWidth:0.5];
+    [[self.composeTextView layer] setCornerRadius: self.composeTextView.frame.size.width*0.05];
+    
+    [[APIManager shared] getCurrentUser:^(User *user, NSError *error) {
+         if(error) {
+              NSLog(@"Error fetching user information: %@", error.localizedDescription);
+             
+         }
+         else{
+             NSLog(@"Successfully fetched user info: %@", user.name);
+             NSString *URLString = user.profilePicture;
+             NSURL *url = [NSURL URLWithString:URLString];
+             NSData *urlData = [NSData dataWithContentsOfURL:url];
+             self.profileImage.image = [UIImage imageWithData:urlData];
+             self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 3;
+         }
+     }];
 }
 
 /*

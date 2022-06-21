@@ -51,17 +51,32 @@
 }
 
 - (IBAction)didTapFavorite:(id)sender {
-    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-         if(error){
-              NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-         }
-         else{
-             NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-             self.tweet.favorited = YES;
-             self.tweet.favoriteCount += 1;
-             [self refreshData];
-         }
-     }];
+    if (self.tweet.favorited) {
+        [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+             if(error){
+                  NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
+                 self.tweet.favorited = NO;
+                 self.tweet.favoriteCount -= 1;
+                 [self refreshData];
+             }
+         }];
+    }
+    else {
+        [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+             if(error){
+                  NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+                 self.tweet.favorited = YES;
+                 self.tweet.favoriteCount += 1;
+                 [self refreshData];
+             }
+         }];
+    }
 }
 
 @end

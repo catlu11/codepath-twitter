@@ -8,6 +8,7 @@
 
 #import "TweetCell.h"
 #import "APIManager.h"
+#import "DateTools.h"
 
 @implementation TweetCell
 
@@ -25,7 +26,12 @@
 - (void)refreshData {
     self.userTagLabel.text = self.tweet.user.name;
     self.screenNameLabel.text = self.tweet.user.screenName;
-    self.dateLabel.text = self.tweet.createdAtString;
+    if ([self.tweet.date isEarlierThan:[[NSDate date] dateBySubtractingMonths:1]]) {
+        self.dateLabel.text = self.tweet.createdAtString;
+    }
+    else {
+        self.dateLabel.text = self.tweet.date.shortTimeAgoSinceNow;
+    }
     self.tweetTextLabel.text = self.tweet.text;
     self.retweetLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
     self.likesLabel.text = [NSString stringWithFormat:@"%d", self.tweet.favoriteCount];

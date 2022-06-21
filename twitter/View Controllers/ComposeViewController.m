@@ -9,8 +9,11 @@
 #import "ComposeViewController.h"
 #import "APIManager.h"
 
-@interface ComposeViewController ()
+@interface ComposeViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *profileImage;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *tweetButton;
+@property (weak, nonatomic) IBOutlet UILabel *characterCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *warningLabel;
 @property (weak, nonatomic) IBOutlet UITextView *composeTextView;
 @end
 
@@ -19,9 +22,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.composeTextView.delegate = self;
     [[self.composeTextView layer] setBorderColor:[[UIColor blackColor] CGColor]];
     [[self.composeTextView layer] setBorderWidth:0.5];
     [[self.composeTextView layer] setCornerRadius: self.composeTextView.frame.size.width*0.05];
+    NSString *text = self.composeTextView.text;
+    self.characterCountLabel.text = [NSString stringWithFormat:@"%lu", [text length]];
     
     [[APIManager shared] getCurrentUser:^(User *user, NSError *error) {
          if(error) {
@@ -39,15 +45,23 @@
      }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)textViewDidChange:(UITextView *)textView {
+    NSString *text = self.composeTextView.text;
+    NSInteger *count = [text length];
+    NSString *countString = [NSString stringWithFormat:@"%lu", count];
+    self.characterCountLabel.text = countString;
+    if(count > 280) {
+        [self.warningLabel setHidden:NO];
+        self.characterCountLabel.textColor = [UIColor redColor];
+        self.tweetButton.enabled = NO;
+    }
+    else {
+        [self.warningLabel setHidden:YES];
+        self.characterCountLabel.textColor = [UIColor blackColor];
+        self.tweetButton.enabled = YES;
+    }
 }
-*/
+
 - (IBAction)closeBtnAction:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }

@@ -272,6 +272,18 @@
                                     <constraint firstAttribute="width" constant="75" id="q93-l0-c1w"/>
                                 </constraints>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="##" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahS-nF-EMf">
+                                <rect key="frame" x="95" y="257" width="21" height="27"/>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Character count (280) exceeded." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2G-fT-C26">
+                                <rect key="frame" x="93" y="292" width="189" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RCA-km-be1"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -280,8 +292,12 @@
                             <constraint firstItem="xiO-Dh-PJT" firstAttribute="top" secondItem="RCA-km-be1" secondAttribute="top" constant="12" id="LcZ-Ev-Kza"/>
                             <constraint firstItem="FfK-8m-hLt" firstAttribute="top" secondItem="xiO-Dh-PJT" secondAttribute="top" id="MK0-0I-Qy6"/>
                             <constraint firstItem="FfK-8m-hLt" firstAttribute="height" secondItem="zSk-AB-VI7" secondAttribute="height" multiplier="0.279753" id="NPM-3Y-tra"/>
+                            <constraint firstItem="x2G-fT-C26" firstAttribute="top" secondItem="ahS-nF-EMf" secondAttribute="bottom" id="QWe-KZ-wG0"/>
                             <constraint firstItem="RCA-km-be1" firstAttribute="trailing" secondItem="FfK-8m-hLt" secondAttribute="trailing" constant="12" id="WCR-xZ-RVS"/>
                             <constraint firstItem="FfK-8m-hLt" firstAttribute="leading" secondItem="xiO-Dh-PJT" secondAttribute="trailing" constant="8" symbolic="YES" id="oKc-vi-ipH"/>
+                            <constraint firstItem="ahS-nF-EMf" firstAttribute="leading" secondItem="FfK-8m-hLt" secondAttribute="leading" id="oTc-4U-v1R"/>
+                            <constraint firstItem="x2G-fT-C26" firstAttribute="leading" secondItem="ahS-nF-EMf" secondAttribute="leading" id="olO-4z-kM3"/>
+                            <constraint firstItem="ahS-nF-EMf" firstAttribute="firstBaseline" secondItem="FfK-8m-hLt" secondAttribute="baseline" constant="24.5" symbolType="layoutAnchor" id="pZ6-NY-U2M"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Compose Tweet" id="ysW-H7-tFZ">
@@ -297,8 +313,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="characterCountLabel" destination="ahS-nF-EMf" id="7Jg-kZ-QH4"/>
                         <outlet property="composeTextView" destination="FfK-8m-hLt" id="Sp1-u5-lj3"/>
                         <outlet property="profileImage" destination="xiO-Dh-PJT" id="LwQ-Zl-Ywb"/>
+                        <outlet property="tweetButton" destination="KbL-R2-wIJ" id="H6J-fc-7OD"/>
+                        <outlet property="warningLabel" destination="x2G-fT-C26" id="YvK-8g-1d7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ai6-GB-2Yh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -482,6 +501,9 @@
         </systemColor>
         <systemColor name="systemGray2Color">
             <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

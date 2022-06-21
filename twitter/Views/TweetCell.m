@@ -46,8 +46,32 @@
 }
 
 - (IBAction)didTapRetweet:(id)sender {
-    
-    // TODO: Send a POST request to the POST favorites/create endpoint
+    if (self.tweet.retweeted) {
+        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+             if(error){
+                  NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
+                 self.tweet.retweeted = NO;
+                 self.tweet.retweetCount -= 1;
+                 [self refreshData];
+             }
+         }];
+    }
+    else {
+        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+             if(error){
+                  NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+             }
+             else{
+                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
+                 self.tweet.retweeted = YES;
+                 self.tweet.retweetCount += 1;
+                 [self refreshData];
+             }
+         }];
+    }
 }
 
 - (IBAction)didTapFavorite:(id)sender {

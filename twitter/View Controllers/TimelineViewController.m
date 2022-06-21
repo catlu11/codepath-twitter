@@ -88,34 +88,19 @@
     Tweet *tweet = self.arrayOfTweets[indexPath.row];
     cell.tweet = tweet;
     [cell refreshData];
-//    User *user = tweet.user;
-//
-//    cell.userTagLabel.text = user.name;
-//    cell.screenNameLabel.text = user.screenName;
-//    cell.dateLabel.text = tweet.createdAtString;
-//    cell.tweetTextLabel.text = tweet.text;
-//    cell.retweetLabel.text = [NSString stringWithFormat:@"%d", tweet.retweetCount];
-//    cell.likesLabel.text = [NSString stringWithFormat:@"%d", tweet.favoriteCount];
-//    cell.replyLabel.text = [NSString stringWithFormat:@"%d", tweet.replyCount];
-    
-//    if (tweet.retweeted) {
-//        [cell.retweetButton setImage:[UIImage imageNamed: @"retweet-icon-green"] forState:UIControlStateNormal];
-//    }
-//    if (tweet.favorited) {
-////        cell.likeButton.imageView.image = [UIImage imageNamed: @"favor-icon-red"];
-//        [cell.likeButton setImage:[UIImage imageNamed: @"favor-icon-red"] forState:UIControlStateNormal];
-//    }
-    
+
     NSString *URLString = tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     cell.profileImageView.image = [UIImage imageWithData:urlData];
+    cell.profileImageView.layer.cornerRadius = cell.profileImageView.frame.size.width / 3;
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return self.arrayOfTweets.count;
     return 20;
 }
 

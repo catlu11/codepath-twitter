@@ -26,7 +26,7 @@ The following **stretch** features are implemented:
 **A user could**
 
 - [x] Be able to **unlike** or **un-retweet** by tapping a liked or retweeted Tweet button, respectively. (Doing so will decrement the count for each)
-- [ ] Click on links that appear in Tweets
+- [x] Click on links that appear in Tweets
 - [ ] See embedded media in Tweets that contain images or videos
 - [ ] Reply to any Tweet (**2 points**)
   - Replies should be prefixed with the username

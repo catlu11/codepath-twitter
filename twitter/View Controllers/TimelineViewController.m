@@ -16,7 +16,8 @@
 
 @interface TimelineViewController () <UITableViewDataSource, ComposeViewControllerDelegate, UITableViewDelegate>
     @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
-    @property (strong, nonatomic) UIRefreshControl *refreshControl;
+
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
 @implementation TimelineViewController

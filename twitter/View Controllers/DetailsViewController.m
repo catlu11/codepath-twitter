@@ -13,7 +13,7 @@
 #import "TimelineViewController.h"
 
 @interface DetailsViewController ()
-
+@property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
 @end
 
 @implementation DetailsViewController
@@ -46,7 +46,7 @@
     }
     
     // Set tweet content label
-    self.tweetLabel.text = self.tweet.text;
+    self.tweetTextView.text = self.tweet.text;
     
     // Set counts labels
     self.retweetLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];

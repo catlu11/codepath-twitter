@@ -14,6 +14,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.tweetViewText.textContainer.lineFragmentPadding = 0;
+    self.tweetViewText.textContainerInset = UIEdgeInsetsZero;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -34,7 +36,8 @@
     }
     
     // Set tweet content label
-    self.tweetTextLabel.text = self.tweet.text;
+    self.tweetViewText
+        .text = self.tweet.text;
     
     // Set counts labels
     self.retweetLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];

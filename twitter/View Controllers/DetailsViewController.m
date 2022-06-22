@@ -14,6 +14,8 @@
 
 @interface DetailsViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
+@property (weak, nonatomic) IBOutlet WKWebView *mediaWebView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mediaWebViewHeight;
 @end
 
 @implementation DetailsViewController
@@ -67,6 +69,27 @@
     }
     else {
         [self.likeButton setImage:[UIImage imageNamed: @"favor-icon"] forState:UIControlStateNormal];
+    }
+    
+    self.mediaWebView.scrollView.scrollEnabled = NO;
+    if(self.tweet.imageUrlArray.count > 0) {
+        self.mediaWebViewHeight.constant = 200;
+        NSString *urlString = [self.tweet.imageUrlArray objectAtIndex:0];
+        NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                                   cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                   timeoutInterval:10.0];
+        [self.mediaWebView loadRequest:mediaRequest];
+    }
+    else if(self.tweet.videoUrlArray.count > 0) {
+        self.mediaWebViewHeight.constant = 200;
+        NSString *urlString = [self.tweet.videoUrlArray objectAtIndex:0];
+        NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                                   cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                   timeoutInterval:10.0];
+        [self.mediaWebView loadRequest:mediaRequest];
+    }
+    else {
+        self.mediaWebViewHeight.constant = 0;
     }
 }
 - (IBAction)didTapRetweet:(id)sender {

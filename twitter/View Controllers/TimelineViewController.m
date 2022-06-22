@@ -39,7 +39,13 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self fetchTimeline];
+    for (int section = 0; section < [self.timelineTableView numberOfSections]; section++) {
+        for (int row = 0; row < 20; row++) {
+            NSIndexPath* path = [NSIndexPath indexPathForRow:row inSection:section];
+            TweetCell *cell = [self.timelineTableView cellForRowAtIndexPath:path];
+            [cell refreshData];
+        }
+    }
 }
 
 - (void)fetchTimeline {

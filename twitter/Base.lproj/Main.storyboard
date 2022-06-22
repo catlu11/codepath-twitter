@@ -164,11 +164,13 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                 </textView>
-                                                <wkWebView hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oZI-pJ-pHU">
-                                                    <rect key="frame" x="99" y="84" width="249" height="128"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <wkWebView clipsSubviews="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="oZI-pJ-pHU">
+                                                    <rect key="frame" x="99" y="220" width="260" height="0.0"/>
                                                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <wkWebViewConfiguration key="configuration">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" id="aTd-td-3AO"/>
+                                                    </constraints>
+                                                    <wkWebViewConfiguration key="configuration" allowsInlineMediaPlayback="YES">
                                                         <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                                         <wkPreferences key="preferences"/>
                                                     </wkWebViewConfiguration>
@@ -177,19 +179,21 @@
                                             <constraints>
                                                 <constraint firstItem="LVW-Nh-SMX" firstAttribute="centerY" secondItem="uQj-bs-O9v" secondAttribute="centerY" id="05i-mQ-e9k"/>
                                                 <constraint firstItem="Dic-K3-tpg" firstAttribute="top" secondItem="Cqh-ky-GBo" secondAttribute="top" id="2dK-Sn-cZF"/>
+                                                <constraint firstItem="Fep-sQ-6RZ" firstAttribute="top" secondItem="oZI-pJ-pHU" secondAttribute="bottom" constant="8" id="3pV-if-tHK"/>
                                                 <constraint firstAttribute="trailing" secondItem="tgU-L7-MQa" secondAttribute="trailing" constant="16" id="4vM-ph-0hr"/>
                                                 <constraint firstItem="wNg-Nj-6Fj" firstAttribute="leading" secondItem="Dic-K3-tpg" secondAttribute="trailing" constant="10.5" id="5ta-ir-ts4"/>
                                                 <constraint firstItem="KGC-by-1Hj" firstAttribute="leading" secondItem="aDG-g4-TcQ" secondAttribute="leading" constant="16" id="6qd-LV-kBA"/>
                                                 <constraint firstItem="KGC-by-1Hj" firstAttribute="top" secondItem="aDG-g4-TcQ" secondAttribute="top" constant="11" id="Ajv-xO-WB3"/>
                                                 <constraint firstItem="tgU-L7-MQa" firstAttribute="top" secondItem="Cqh-ky-GBo" secondAttribute="bottom" constant="6" id="CFO-oT-1XV"/>
                                                 <constraint firstItem="ElB-tE-T4i" firstAttribute="leading" secondItem="05H-BQ-gN3" secondAttribute="trailing" constant="6" id="DdB-pA-rRX"/>
-                                                <constraint firstItem="Fep-sQ-6RZ" firstAttribute="top" secondItem="tgU-L7-MQa" secondAttribute="bottom" constant="6" id="Esf-uS-J25"/>
                                                 <constraint firstItem="tgU-L7-MQa" firstAttribute="leading" secondItem="Cqh-ky-GBo" secondAttribute="leading" id="ILs-LT-iOd"/>
                                                 <constraint firstItem="ElB-tE-T4i" firstAttribute="centerY" secondItem="05H-BQ-gN3" secondAttribute="centerY" id="JQg-j0-nZg"/>
                                                 <constraint firstItem="Fep-sQ-6RZ" firstAttribute="leading" secondItem="tgU-L7-MQa" secondAttribute="leading" id="JYS-ws-zZf"/>
                                                 <constraint firstItem="wNg-Nj-6Fj" firstAttribute="centerY" secondItem="Dic-K3-tpg" secondAttribute="centerY" id="Md5-QB-loe"/>
+                                                <constraint firstItem="oZI-pJ-pHU" firstAttribute="top" secondItem="tgU-L7-MQa" secondAttribute="bottom" constant="6" id="OHY-Ne-eSo"/>
                                                 <constraint firstItem="Cqh-ky-GBo" firstAttribute="top" secondItem="KGC-by-1Hj" secondAttribute="top" id="PBf-cV-WAr"/>
                                                 <constraint firstItem="05H-BQ-gN3" firstAttribute="leading" secondItem="Fep-sQ-6RZ" secondAttribute="trailing" id="QPm-By-ti3"/>
+                                                <constraint firstItem="oZI-pJ-pHU" firstAttribute="leading" secondItem="Cqh-ky-GBo" secondAttribute="leading" id="V7N-gI-5n2"/>
                                                 <constraint firstItem="Dic-K3-tpg" firstAttribute="leading" secondItem="Cqh-ky-GBo" secondAttribute="trailing" constant="5" id="XAH-t9-8U1"/>
                                                 <constraint firstAttribute="bottom" secondItem="Fep-sQ-6RZ" secondAttribute="bottom" constant="12" id="aWJ-ji-FF8"/>
                                                 <constraint firstItem="05H-BQ-gN3" firstAttribute="centerY" secondItem="Fep-sQ-6RZ" secondAttribute="centerY" id="bWj-mP-YNY"/>
@@ -197,6 +201,7 @@
                                                 <constraint firstItem="uQj-bs-O9v" firstAttribute="centerY" secondItem="ElB-tE-T4i" secondAttribute="centerY" id="gvY-Dn-MAk"/>
                                                 <constraint firstItem="Cqh-ky-GBo" firstAttribute="leading" secondItem="KGC-by-1Hj" secondAttribute="trailing" constant="8" id="hpk-VQ-3d4"/>
                                                 <constraint firstItem="22L-Tw-Xwu" firstAttribute="leading" secondItem="LVW-Nh-SMX" secondAttribute="trailing" id="kti-HA-Mqd"/>
+                                                <constraint firstItem="oZI-pJ-pHU" firstAttribute="trailing" secondItem="tgU-L7-MQa" secondAttribute="trailing" id="mCJ-OJ-cKE"/>
                                                 <constraint firstItem="uQj-bs-O9v" firstAttribute="leading" secondItem="ElB-tE-T4i" secondAttribute="trailing" id="ucQ-Bx-mhh"/>
                                                 <constraint firstItem="LVW-Nh-SMX" firstAttribute="leading" secondItem="uQj-bs-O9v" secondAttribute="trailing" constant="6" id="vp3-wy-gu3"/>
                                             </constraints>
@@ -205,6 +210,7 @@
                                             <outlet property="dateLabel" destination="wNg-Nj-6Fj" id="03H-9l-E2d"/>
                                             <outlet property="likeButton" destination="ElB-tE-T4i" id="3Hr-Rb-QbT"/>
                                             <outlet property="likesLabel" destination="uQj-bs-O9v" id="x5D-yA-Xo5"/>
+                                            <outlet property="mediaWebView" destination="oZI-pJ-pHU" id="eJT-i9-ojZ"/>
                                             <outlet property="profileImageView" destination="KGC-by-1Hj" id="NBG-Lz-Hbc"/>
                                             <outlet property="replyButton" destination="LVW-Nh-SMX" id="Z7Y-EZ-Ey7"/>
                                             <outlet property="replyLabel" destination="22L-Tw-Xwu" id="ybh-Ed-gWJ"/>
@@ -213,6 +219,7 @@
                                             <outlet property="screenNameLabel" destination="Cqh-ky-GBo" id="abb-KG-sGE"/>
                                             <outlet property="tweetViewText" destination="tgU-L7-MQa" id="tqS-WG-CGB"/>
                                             <outlet property="userTagLabel" destination="Dic-K3-tpg" id="5dM-nk-ull"/>
+                                            <outlet property="webViewHeightConstraint" destination="aTd-td-3AO" id="XoI-3F-Ihl"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -398,24 +405,24 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M/D/YY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QeS-1c-yr3">
-                                <rect key="frame" x="16" y="258" width="48" height="17"/>
+                                <rect key="frame" x="16" y="268" width="48" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" systemColor="systemGray2Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#retweet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XhJ-FH-S70">
-                                <rect key="frame" x="153" y="259" width="51" height="15"/>
+                                <rect key="frame" x="153" y="269" width="51" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" systemColor="systemGray2Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHZ-9N-qCl">
-                                <rect key="frame" x="283" y="251.5" width="30" height="30"/>
+                                <rect key="frame" x="283" y="261.5" width="30" height="30"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="reply-icon"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="unb-l7-oV8">
-                                <rect key="frame" x="123" y="251.5" width="30" height="30"/>
+                                <rect key="frame" x="123" y="261.5" width="30" height="30"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="retweet-icon"/>
                                 <connections>
@@ -423,7 +430,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0Z-FB-lsE">
-                                <rect key="frame" x="212" y="251.5" width="30" height="30"/>
+                                <rect key="frame" x="212" y="261.5" width="30" height="30"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="favor-icon"/>
                                 <connections>
@@ -431,13 +438,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46t-ta-vKJ">
-                                <rect key="frame" x="242" y="259.5" width="33" height="14"/>
+                                <rect key="frame" x="242" y="269.5" width="33" height="14"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" systemColor="systemGray2Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#replies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELi-Cs-QAN">
-                                <rect key="frame" x="313" y="259" width="46" height="15"/>
+                                <rect key="frame" x="313" y="269" width="46" height="15"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" systemColor="systemGray2Color"/>
                                 <nil key="highlightedColor"/>
@@ -451,6 +458,17 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
+                            <wkWebView clipsSubviews="YES" contentMode="scaleAspectFit" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="vi8-Px-B0I">
+                                <rect key="frame" x="16" y="254" width="343" height="0.0"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="Lyi-gT-mjj"/>
+                                </constraints>
+                                <wkWebViewConfiguration key="configuration" allowsInlineMediaPlayback="YES">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vPk-NV-ebh"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -461,16 +479,20 @@
                             <constraint firstItem="46t-ta-vKJ" firstAttribute="leading" secondItem="a0Z-FB-lsE" secondAttribute="trailing" id="8Li-xF-xrb"/>
                             <constraint firstItem="LC6-G0-dVf" firstAttribute="centerY" secondItem="7We-Iy-1ji" secondAttribute="centerY" id="AZO-KY-Xjj"/>
                             <constraint firstItem="ELi-Cs-QAN" firstAttribute="trailing" secondItem="8nn-cH-gU5" secondAttribute="trailing" id="AdK-K9-Kw8"/>
-                            <constraint firstItem="QeS-1c-yr3" firstAttribute="top" secondItem="8nn-cH-gU5" secondAttribute="bottom" constant="12" id="BTG-HW-2If"/>
+                            <constraint firstItem="vi8-Px-B0I" firstAttribute="top" secondItem="8nn-cH-gU5" secondAttribute="bottom" constant="8" symbolic="YES" id="F9U-b4-jsd"/>
                             <constraint firstItem="kHZ-9N-qCl" firstAttribute="centerY" secondItem="ELi-Cs-QAN" secondAttribute="centerY" id="Fw9-YA-c1G"/>
                             <constraint firstItem="8nn-cH-gU5" firstAttribute="top" secondItem="7We-Iy-1ji" secondAttribute="bottom" constant="10" id="Gd2-da-187"/>
+                            <constraint firstItem="ELi-Cs-QAN" firstAttribute="top" secondItem="vi8-Px-B0I" secondAttribute="bottom" constant="15" id="Hzf-JR-QfG"/>
                             <constraint firstItem="46t-ta-vKJ" firstAttribute="centerY" secondItem="kHZ-9N-qCl" secondAttribute="centerY" id="KL3-Nv-fKz"/>
+                            <constraint firstItem="vPk-NV-ebh" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="QeS-1c-yr3" secondAttribute="bottom" constant="12" id="Ls1-4f-J50"/>
                             <constraint firstItem="ydp-zB-x1k" firstAttribute="top" secondItem="LC6-G0-dVf" secondAttribute="bottom" id="Qxf-UT-fNu"/>
                             <constraint firstItem="ELi-Cs-QAN" firstAttribute="leading" secondItem="kHZ-9N-qCl" secondAttribute="trailing" id="YZ2-gs-pDq"/>
                             <constraint firstItem="ELi-Cs-QAN" firstAttribute="centerY" secondItem="QeS-1c-yr3" secondAttribute="centerY" id="b1C-gk-ROQ"/>
+                            <constraint firstItem="vi8-Px-B0I" firstAttribute="trailing" secondItem="8nn-cH-gU5" secondAttribute="trailing" id="bMM-S8-azy"/>
                             <constraint firstItem="a0Z-FB-lsE" firstAttribute="leading" secondItem="XhJ-FH-S70" secondAttribute="trailing" constant="8" id="bNI-xa-OLa"/>
                             <constraint firstItem="7We-Iy-1ji" firstAttribute="leading" secondItem="vPk-NV-ebh" secondAttribute="leading" constant="16" id="cBj-gu-dOa"/>
                             <constraint firstItem="XhJ-FH-S70" firstAttribute="leading" secondItem="unb-l7-oV8" secondAttribute="trailing" id="eue-dF-eei"/>
+                            <constraint firstItem="vi8-Px-B0I" firstAttribute="leading" secondItem="8nn-cH-gU5" secondAttribute="leading" id="lPN-ze-iih"/>
                             <constraint firstItem="unb-l7-oV8" firstAttribute="centerY" secondItem="XhJ-FH-S70" secondAttribute="centerY" id="mc1-G0-EGn"/>
                             <constraint firstItem="QeS-1c-yr3" firstAttribute="leading" secondItem="8nn-cH-gU5" secondAttribute="leading" id="plb-6d-G9p"/>
                             <constraint firstItem="LC6-G0-dVf" firstAttribute="leading" secondItem="7We-Iy-1ji" secondAttribute="trailing" constant="17" id="rkv-k5-eQB"/>
@@ -484,6 +506,8 @@
                         <outlet property="dateLabel" destination="QeS-1c-yr3" id="Q3n-y9-yyH"/>
                         <outlet property="likeButton" destination="a0Z-FB-lsE" id="ami-7l-WPQ"/>
                         <outlet property="likeLabel" destination="46t-ta-vKJ" id="ped-uS-jd5"/>
+                        <outlet property="mediaWebView" destination="vi8-Px-B0I" id="fnX-qP-WAb"/>
+                        <outlet property="mediaWebViewHeight" destination="Lyi-gT-mjj" id="yqs-eX-COl"/>
                         <outlet property="profileImageView" destination="7We-Iy-1ji" id="IF5-Ir-9r2"/>
                         <outlet property="replyLabel" destination="ELi-Cs-QAN" id="R5a-sr-Vcb"/>
                         <outlet property="retweetButton" destination="unb-l7-oV8" id="QGP-N3-mfk"/>

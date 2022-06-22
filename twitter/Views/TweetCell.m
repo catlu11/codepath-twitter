@@ -36,8 +36,7 @@
     }
     
     // Set tweet content label
-    self.tweetViewText
-        .text = self.tweet.text;
+    self.tweetViewText.text = self.tweet.text;
     
     // Set counts labels
     self.retweetLabel.text = [NSString stringWithFormat:@"%d", self.tweet.retweetCount];
@@ -58,6 +57,28 @@
     }
     else {
         [self.likeButton setImage:[UIImage imageNamed: @"favor-icon"] forState:UIControlStateNormal];
+    }
+    
+    // Set media web view
+    self.mediaWebView.scrollView.scrollEnabled = NO;
+    if(self.tweet.imageUrlArray.count > 0) {
+        self.webViewHeightConstraint.constant = 200;
+        NSString *urlString = [self.tweet.imageUrlArray objectAtIndex:0];
+        NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                                   cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                   timeoutInterval:10.0];
+        [self.mediaWebView loadRequest:mediaRequest];
+    }
+    else if(self.tweet.videoUrlArray.count > 0) {
+        self.webViewHeightConstraint.constant = 200;
+        NSString *urlString = [self.tweet.videoUrlArray objectAtIndex:0];
+        NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                                   cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                                   timeoutInterval:10.0];
+        [self.mediaWebView loadRequest:mediaRequest];
+    }
+    else {
+        self.webViewHeightConstraint.constant = 0;
     }
 }
 

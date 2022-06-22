@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
+#import <WebKit/WebKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
     @property (weak, nonatomic) IBOutlet UITextView *tweetViewText;
     @property (weak, nonatomic) IBOutlet UIButton *likeButton;
     @property (strong, nonatomic) Tweet *tweet;
+    @property (weak, nonatomic) IBOutlet WKWebView *mediaWebView;
+    @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
 
     - (void)refreshData;
 @end

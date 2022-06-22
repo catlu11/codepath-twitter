@@ -54,13 +54,15 @@
         self.createdAtString = [formatter stringFromDate:date];
         
         // obtain media URLs
+        self.videoUrlArray = [[NSMutableArray alloc] init];
+        self.imageUrlArray = [[NSMutableArray alloc] init];
         NSArray *mediaUrls = dictionary[@"entities"][@"media"];
         NSArray *videoUrls = dictionary[@"entities"][@"urls"];
         for (NSDictionary *url in videoUrls) {
-            [self.entityUrlArray addObject:url[@"extended_url"]];
+            [self.videoUrlArray addObject:url[@"expanded_url"]];
         }
         for (NSDictionary *url in mediaUrls) {
-            [self.entityUrlArray addObject:url[@"media_url_https"]];
+            [self.imageUrlArray addObject:url[@"media_url_https"]];
         }
     }
     return self;

@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
     @property (nonatomic, strong) NSString *createdAtString; // Display date string
     @property (nonatomic, strong) NSDate *date; // Display date
     @property (nonatomic, strong) User *retweetedByUser;
+    @property (strong, nonatomic) NSMutableArray *entityUrlArray;
 
     - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
     + (NSMutableArray *)tweetsWithArray:(NSArray *)dictionaries;

@@ -52,6 +52,16 @@
         // convert Date to String
         self.date = date;
         self.createdAtString = [formatter stringFromDate:date];
+        
+        // obtain media URLs
+        NSArray *mediaUrls = dictionary[@"entities"][@"media"];
+        NSArray *videoUrls = dictionary[@"entities"][@"urls"];
+        for (NSDictionary *url in videoUrls) {
+            [self.entityUrlArray addObject:url[@"extended_url"]];
+        }
+        for (NSDictionary *url in mediaUrls) {
+            [self.entityUrlArray addObject:url[@"media_url_https"]];
+        }
     }
     return self;
 }

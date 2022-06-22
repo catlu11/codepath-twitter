@@ -61,6 +61,22 @@
     }];
 }
 
+- (void)fetchNewTimeline {
+    Tweet *lastTweet = self.arrayOfTweets[self.arrayOfTweets.count - 1];
+    [[APIManager shared] getHomeTimelineAfterIdWithCompletion:lastTweet.idStr completion:^(NSArray *tweets, NSError *error) {
+        if (tweets) {
+            NSLog(@"😎😎😎 Successfully loaded more tweets");
+            for(Tweet *tweet in tweets) {
+                [self.arrayOfTweets addObject:tweet];
+            }
+            [self.timelineTableView reloadData];
+            [self.refreshControl endRefreshing];
+        } else {
+            NSLog(@"😫😫😫 Error getting more tweets: %@", error.localizedDescription);
+        }
+    }];
+}
+
 - (void)didTweet:(Tweet *)tweet {
     [self.arrayOfTweets insertObject:tweet atIndex:0];
     [self.timelineTableView reloadData]; // reload to show new tweet
@@ -116,11 +132,17 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    // If bottom, start infinite scrolling
+    if(indexPath.row == self.arrayOfTweets.count - 1) {
+        [self fetchNewTimeline];
+        NSLog(@"%@", self.arrayOfTweets);
+    }
+
     return cell;
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20; // home timeline should show up to 20 tweets
+    return self.arrayOfTweets.count; // home timeline should show up to 20 tweets
 }
 
 @end

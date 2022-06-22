@@ -41,7 +41,7 @@ The following **stretch** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [x] Disable "Tweet" button if composition exceeds character count, preventing user from making invalid tweet
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -49,9 +49,10 @@ Please list two areas of the assignment you'd like to **discuss further with you
 2. Segues vs. delegate view controllers, pros and cons of either navigation approach
 
 ## Video Walkthrough
-The first video is a quick demo of most of the app's features. The second video demonstrates the ability to handle different orientations and the refresh feature.
+The first video is a quick demo of most of the app's features. The image shows the warning that appears when composition exceeds the accepted character count. The second video demonstrates the ability to handle different orientations and the refresh feature. 
 <p float="left">
 <img src='Demo/twitter1.gif' title='Video Walkthrough' alt='Video Walkthrough' width='200'/> 
+<img src='Demo/characterWarning.png' title='Warning Walkthrough' alt='Refresh Error Walkthrough' width='200'/>
 <img src='Demo/twitter2.gif' title='Refresh Walkthrough' alt='Refresh Error Walkthrough' width='320'/>
 </p>
 

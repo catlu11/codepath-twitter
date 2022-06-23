@@ -13,7 +13,8 @@
 #import "TweetCell.h"
 #import "ComposeViewController.h"
 #import "DetailsViewController.h"
-#import "ReplyViewController.h""
+#import "ReplyViewController.h"
+#import "ProfileViewController.h"
 
 @interface TimelineViewController () <UITableViewDataSource, ComposeViewControllerDelegate, ReplyViewControllerDelegate, UITableViewDelegate>
     @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
@@ -124,6 +125,13 @@
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
+- (IBAction) viewProfile:(id)sender {
+    ProfileButton *buttonClicked = (ProfileButton *)sender;
+    ProfileViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+    viewController.user = buttonClicked.user;
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UINavigationController *navigationController = [segue destinationViewController];
     ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
@@ -150,13 +158,10 @@
     // Enable reply button
     cell.replyButton.originalTweet = tweet;
     [cell.replyButton addTarget:self action:@selector(beginReply:) forControlEvents:UIControlEventTouchUpInside];
-
-    // Set user image
-    NSString *URLString = tweet.user.profilePicture;
-    NSURL *url = [NSURL URLWithString:URLString];
-    NSData *urlData = [NSData dataWithContentsOfURL:url];
-    cell.profileImageView.image = [UIImage imageWithData:urlData];
-    cell.profileImageView.layer.cornerRadius = cell.profileImageView.frame.size.width / 3;
+    
+    // Enable profile clicking
+    cell.profileButton.user = tweet.user;
+    [cell.profileButton addTarget:self action:@selector(viewProfile:) forControlEvents:UIControlEventTouchUpInside];
     
     // Remove selection style
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

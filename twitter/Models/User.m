@@ -16,7 +16,12 @@
     if (self) {
         self.name = dictionary[@"name"];
         self.screenName = dictionary[@"screen_name"];
-        self.profilePicture = dictionary[@"profile_image_url_https"];
+        self.profilePicture = [dictionary[@"profile_image_url_https"] stringByReplacingOccurrencesOfString:@"_normal" withString:@""];
+        self.headerPicture = dictionary[@"profile_banner_url"];
+        self.bioText = dictionary[@"description"];
+        self.followersCount = dictionary[@"followers_count"];
+        self.followingCount = dictionary[@"friends_count"];
+        self.tweetCount = dictionary[@"statuses_count"];
     }
     return self;
 }

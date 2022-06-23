@@ -8,13 +8,17 @@
 
 #import "ComposeViewController.h"
 #import "APIManager.h"
+#import "ProfileButton.h"
+#import "User.h"
+#import "ProfileViewController.h"
 
 @interface ComposeViewController () <UITextViewDelegate>
-@property (weak, nonatomic) IBOutlet UIImageView *profileImage;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *tweetButton;
 @property (weak, nonatomic) IBOutlet UILabel *characterCountLabel;
 @property (weak, nonatomic) IBOutlet UILabel *warningLabel;
 @property (weak, nonatomic) IBOutlet UITextView *composeTextView;
+@property (weak, nonatomic) IBOutlet ProfileButton *profileButton;
+@property (strong, nonatomic) User *user;
 @end
 
 @implementation ComposeViewController
@@ -36,11 +40,13 @@
          }
          else{
              NSLog(@"Successfully fetched user info: %@", user.name);
+             self.user = user;
              NSString *URLString = user.profilePicture;
              NSURL *url = [NSURL URLWithString:URLString];
              NSData *urlData = [NSData dataWithContentsOfURL:url];
-             self.profileImage.image = [UIImage imageWithData:urlData];
-             self.profileImage.layer.cornerRadius = self.profileImage.frame.size.width / 3;
+             [self.profileButton setBackgroundImage:[UIImage imageWithData:urlData] forState:UIControlStateNormal];
+             self.profileButton.layer.cornerRadius = self.profileButton.frame.size.width / 3;
+             self.profileButton.clipsToBounds = YES;
          }
      }];
 }
@@ -60,6 +66,11 @@
         self.characterCountLabel.textColor = [UIColor blackColor];
         self.tweetButton.enabled = YES;
     }
+}
+- (IBAction)didTapProfile:(id)sender {
+    ProfileViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+    viewController.user = self.user;
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (IBAction)closeBtnAction:(id)sender {

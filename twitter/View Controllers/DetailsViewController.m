@@ -12,6 +12,7 @@
 #import "APIManager.h"
 #import "TimelineViewController.h"
 #import "ReplyViewController.h"
+#import "ProfileViewController.h"
 
 @interface DetailsViewController () <ReplyViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
@@ -20,7 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *mediaImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mediaWebViewHeight;
 @property (weak, nonatomic) IBOutlet ReplyButton *replyButton;
-@property (strong, nonatomic) IBOutlet UIView *view;
+@property (weak, nonatomic) IBOutlet ProfileButton *profileButton;
 @end
 
 @implementation DetailsViewController
@@ -35,12 +36,19 @@
     NSString *URLString = self.tweet.user.profilePicture;
     NSURL *url = [NSURL URLWithString:URLString];
     NSData *urlData = [NSData dataWithContentsOfURL:url];
-    self.profileImageView.image = [UIImage imageWithData:urlData];
-    self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 3;
+    [self.profileButton setBackgroundImage:[UIImage imageWithData:urlData] forState:UIControlStateNormal];
+    self.profileButton.layer.cornerRadius = self.profileButton.frame.size.width / 3;
+    self.profileButton.clipsToBounds = YES;
     
     // Enable reply button
     self.replyButton.originalTweet = self.tweet;
     [self.replyButton addTarget:self action:@selector(beginReply:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (IBAction)didTapProfile:(id)sender {
+    ProfileViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
+    viewController.user = self.tweet.user;
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (IBAction) beginReply:(id)sender {

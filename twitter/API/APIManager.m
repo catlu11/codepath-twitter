@@ -8,6 +8,7 @@
 
 #import "APIManager.h"
 #import "Tweet.h"
+#import "User.h"
 
 static NSString * const baseURLString = @"https://api.twitter.com";
 
@@ -81,13 +82,12 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
-- (void)getHomeTimelineAfterIdWithCompletion:(NSString *)maxIdStr completion:(void(^)(NSArray *tweets, NSError *error))completion {
-    [self GET:@"1.1/statuses/home_timeline.json"
-   parameters:@{@"tweet_mode":@"extended", @"max_id":maxIdStr} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+- (void)getUserInfo:(NSString *)screenName completion:(void(^)(User *user, NSError *error))completion {
+    [self GET:@"1.1/users/show.json"
+   parameters:@{@"screen_name":screenName} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable userDictionary) {
            // Success
-           NSMutableArray *tweets = [Tweet tweetsWithArray:tweetDictionaries];
-            [tweets removeObjectAtIndex:0];
-           completion(tweets, nil);
+            User *user = [[User alloc]initWithDictionary:userDictionary];
+           completion(user, nil);
        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
            // There was a problem
            completion(nil, error);

@@ -9,7 +9,7 @@
 #import "TweetCell.h"
 #import "APIManager.h"
 #import "DateTools.h"
-#import "ReplyViewController.h"
+#import "ProfileViewController.h"
 
 @implementation TweetCell
 
@@ -24,6 +24,14 @@
 }
 
 - (void)refreshData {
+    // Set user image
+    NSString *URLString = self.tweet.user.profilePicture;
+    NSURL *url = [NSURL URLWithString:URLString];
+    NSData *urlData = [NSData dataWithContentsOfURL:url];
+    [self.profileButton setBackgroundImage:[UIImage imageWithData:urlData] forState:UIControlStateNormal];
+    self.profileButton.layer.cornerRadius = self.profileButton.frame.size.width / 3;
+    self.profileButton.clipsToBounds = YES;
+    
     // Set username and screen name labels
     self.userTagLabel.text = self.tweet.user.screenName;
     self.screenNameLabel.text = self.tweet.user.name;

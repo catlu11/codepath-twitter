@@ -10,11 +10,11 @@
 #import "Tweet.h"
 #import <WebKit/WebKit.h>
 #import "ReplyButton.h"
+#import "ProfileButton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TweetCell : UITableViewCell
-    @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
     @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
     @property (weak, nonatomic) IBOutlet UILabel *userTagLabel;
     @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -29,7 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
     @property (weak, nonatomic) IBOutlet WKWebView *mediaWebView;
     @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
     @property (weak, nonatomic) IBOutlet UIImageView *mediaImageView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
+    @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
+@property (weak, nonatomic) IBOutlet ProfileButton *profileButton;
 
     - (void)refreshData;
 @end

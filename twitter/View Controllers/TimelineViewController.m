@@ -13,8 +13,9 @@
 #import "TweetCell.h"
 #import "ComposeViewController.h"
 #import "DetailsViewController.h"
+#import "ReplyViewController.h""
 
-@interface TimelineViewController () <UITableViewDataSource, ComposeViewControllerDelegate, UITableViewDelegate>
+@interface TimelineViewController () <UITableViewDataSource, ComposeViewControllerDelegate, ReplyViewControllerDelegate, UITableViewDelegate>
     @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
@@ -82,6 +83,21 @@
     [self.timelineTableView reloadData]; // reload to show new tweet
 }
 
+- (void)didReply:(NSString *)idStr {
+    for (int section = 0; section < [self.timelineTableView numberOfSections]; section++) {
+        for (int row = 0; row < [self.timelineTableView numberOfRowsInSection:section]; row++) {
+            NSIndexPath* path = [NSIndexPath indexPathForRow:row inSection:section];
+            TweetCell *cell = [self.timelineTableView cellForRowAtIndexPath:path];
+            if([cell.tweet.idStr isEqualToString:idStr]) {
+                cell.tweet.replyCount += 1;
+                cell.tweet.replied = YES;
+                [cell refreshData];
+                break;
+            }
+        }
+    }
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
@@ -98,6 +114,14 @@
 
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {
     [self fetchTimeline];
+}
+
+- (IBAction) beginReply:(id)sender {
+    ReplyButton *buttonClicked = (ReplyButton *)sender;
+    ReplyViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ReplyViewController"];
+    viewController.tweet = buttonClicked.originalTweet;
+    viewController.delegate = self;
+    [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -122,6 +146,10 @@
     Tweet *tweet = self.arrayOfTweets[indexPath.row];
     cell.tweet = tweet;
     [cell refreshData];
+    
+    // Enable reply button
+    cell.replyButton.originalTweet = tweet;
+    [cell.replyButton addTarget:self action:@selector(beginReply:) forControlEvents:UIControlEventTouchUpInside];
 
     // Set user image
     NSString *URLString = tweet.user.profilePicture;
@@ -130,6 +158,7 @@
     cell.profileImageView.image = [UIImage imageWithData:urlData];
     cell.profileImageView.layer.cornerRadius = cell.profileImageView.frame.size.width / 3;
     
+    // Remove selection style
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     // If bottom, start infinite scrolling

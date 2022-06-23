@@ -15,7 +15,10 @@
 @interface DetailsViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
 @property (weak, nonatomic) IBOutlet WKWebView *mediaWebView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mediaImageHeightConstraint;
+@property (weak, nonatomic) IBOutlet UIImageView *mediaImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mediaWebViewHeight;
+@property (strong, nonatomic) IBOutlet UIView *view;
 @end
 
 @implementation DetailsViewController
@@ -73,15 +76,28 @@
     
     self.mediaWebView.scrollView.scrollEnabled = NO;
     if(self.tweet.imageUrlArray.count > 0) {
-        self.mediaWebViewHeight.constant = 200;
         NSString *urlString = [self.tweet.imageUrlArray objectAtIndex:0];
-        NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
-                                                   cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                   timeoutInterval:10.0];
-        [self.mediaWebView loadRequest:mediaRequest];
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSData *urlData = [NSData dataWithContentsOfURL:url];
+        self.mediaImageView.image = [UIImage imageWithData:urlData];
+        
+        double width = self.mediaImageView.frame.size.width;
+        double ratio = width / self.mediaImageView.image.size.width;
+        int frameHeight = (int) round(self.view.frame.size.height * 0.35);
+        int modifiedImgHeight = (int) round(self.mediaImageView.image.size.height * ratio);
+        int minHeight = MIN(frameHeight, modifiedImgHeight);
+
+        if(minHeight > 0) {
+            self.mediaImageHeightConstraint.constant = minHeight;
+        }
+        else {
+            self.mediaImageHeightConstraint.constant = frameHeight;
+        }
+        self.mediaWebViewHeight.constant = 0;
     }
     else if(self.tweet.videoUrlArray.count > 0) {
         self.mediaWebViewHeight.constant = 200;
+        self.mediaImageHeightConstraint.constant = 0;
         NSString *urlString = [self.tweet.videoUrlArray objectAtIndex:0];
         NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
                                                    cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
@@ -89,6 +105,7 @@
         [self.mediaWebView loadRequest:mediaRequest];
     }
     else {
+        self.mediaImageHeightConstraint.constant = 0;
         self.mediaWebViewHeight.constant = 0;
     }
 }

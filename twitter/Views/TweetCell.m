@@ -9,6 +9,7 @@
 #import "TweetCell.h"
 #import "APIManager.h"
 #import "DateTools.h"
+#import "ReplyViewController.h"
 
 @implementation TweetCell
 
@@ -62,15 +63,19 @@
     // Set media web view
     self.mediaWebView.scrollView.scrollEnabled = NO;
     if(self.tweet.imageUrlArray.count > 0) {
-        self.webViewHeightConstraint.constant = 200;
         NSString *urlString = [self.tweet.imageUrlArray objectAtIndex:0];
-        NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
-                                                   cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                   timeoutInterval:10.0];
-        [self.mediaWebView loadRequest:mediaRequest];
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSData *urlData = [NSData dataWithContentsOfURL:url];
+        self.mediaImageView.image = [UIImage imageWithData:urlData];
+        
+        double width = self.mediaImageView.frame.size.width;
+        double ratio = width / self.mediaImageView.image.size.width;
+        self.imageViewHeightConstraint.constant = round(self.mediaImageView.image.size.height * ratio);
+        self.webViewHeightConstraint.constant = 0;
     }
     else if(self.tweet.videoUrlArray.count > 0) {
         self.webViewHeightConstraint.constant = 200;
+        self.imageViewHeightConstraint.constant = 0;
         NSString *urlString = [self.tweet.videoUrlArray objectAtIndex:0];
         NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
                                                    cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
@@ -78,6 +83,7 @@
         [self.mediaWebView loadRequest:mediaRequest];
     }
     else {
+        self.imageViewHeightConstraint.constant = 0;
         self.webViewHeightConstraint.constant = 0;
     }
 }

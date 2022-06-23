@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Tweet.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ReplyViewController : UIViewController
+@protocol ReplyViewControllerDelegate
+- (void)didReply:(NSString *)idStr;
+@end
 
+@interface ReplyViewController : UIViewController
+@property(strong, nonatomic) Tweet *tweet;
+@property(strong, nonatomic) id<ReplyViewControllerDelegate> delegate;
 @end
 
 NS_ASSUME_NONNULL_END

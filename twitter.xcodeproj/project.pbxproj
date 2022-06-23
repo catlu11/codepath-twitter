@@ -18,6 +18,8 @@
 		6AD2790620BCC0380085BC29 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2790520BCC0380085BC29 /* LoginViewController.m */; };
 		6AD2790920BCC04D0085BC29 /* TimelineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2790820BCC04D0085BC29 /* TimelineViewController.m */; };
 		F055C10228623D000037DAB0 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F055C10128623D000037DAB0 /* DetailsViewController.m */; };
+		F055C1052864D4830037DAB0 /* ReplyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F055C1042864D4830037DAB0 /* ReplyViewController.m */; };
+		F055C1082864DF790037DAB0 /* ReplyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = F055C1072864DF790037DAB0 /* ReplyButton.m */; };
 		F06DBA89286110F3002B575D /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = F06DBA88286110F3002B575D /* Keys.plist */; };
 		F06DBA8C28611356002B575D /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = F06DBA8B28611356002B575D /* User.m */; };
 		F06DBA8F286113B7002B575D /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = F06DBA8E286113B7002B575D /* Tweet.m */; };
@@ -47,6 +49,10 @@
 		75895B6507775E8AFBEEA2D9 /* Pods-twitter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-twitter/Pods-twitter.debug.xcconfig"; sourceTree = "<group>"; };
 		F055C10028623D000037DAB0 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
 		F055C10128623D000037DAB0 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
+		F055C1032864D4830037DAB0 /* ReplyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplyViewController.h; sourceTree = "<group>"; };
+		F055C1042864D4830037DAB0 /* ReplyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplyViewController.m; sourceTree = "<group>"; };
+		F055C1062864DF790037DAB0 /* ReplyButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplyButton.h; sourceTree = "<group>"; };
+		F055C1072864DF790037DAB0 /* ReplyButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplyButton.m; sourceTree = "<group>"; };
 		F06DBA88286110F3002B575D /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		F06DBA8A28611356002B575D /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		F06DBA8B28611356002B575D /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
@@ -142,6 +148,8 @@
 			children = (
 				F06DBA9028611C5B002B575D /* TweetCell.h */,
 				F06DBA9128611C5B002B575D /* TweetCell.m */,
+				F055C1062864DF790037DAB0 /* ReplyButton.h */,
+				F055C1072864DF790037DAB0 /* ReplyButton.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -154,6 +162,8 @@
 				F055C10128623D000037DAB0 /* DetailsViewController.m */,
 				6AD2790520BCC0380085BC29 /* LoginViewController.m */,
 				6AD2790720BCC04D0085BC29 /* TimelineViewController.h */,
+				F055C1032864D4830037DAB0 /* ReplyViewController.h */,
+				F055C1042864D4830037DAB0 /* ReplyViewController.m */,
 				6AD2790820BCC04D0085BC29 /* TimelineViewController.m */,
 				F06DBA9328612FAA002B575D /* ComposeViewController.h */,
 				F06DBA9428612FAA002B575D /* ComposeViewController.m */,
@@ -284,9 +294,11 @@
 				F06DBA9228611C5B002B575D /* TweetCell.m in Sources */,
 				6AD278F320BCA6020085BC29 /* BDBOAuth1SessionManager+SFAuthenticationSession.m in Sources */,
 				F055C10228623D000037DAB0 /* DetailsViewController.m in Sources */,
+				F055C1052864D4830037DAB0 /* ReplyViewController.m in Sources */,
 				F06DBA8C28611356002B575D /* User.m in Sources */,
 				F06DBA9528612FAA002B575D /* ComposeViewController.m in Sources */,
 				6AD278E820BC4B970085BC29 /* main.m in Sources */,
+				F055C1082864DF790037DAB0 /* ReplyButton.m in Sources */,
 				F06DBA8F286113B7002B575D /* Tweet.m in Sources */,
 				6AD2790620BCC0380085BC29 /* LoginViewController.m in Sources */,
 				6AD278DA20BC4B950085BC29 /* AppDelegate.m in Sources */,

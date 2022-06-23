@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Tweet.h"
 #import <WebKit/WebKit.h>
+#import "ReplyButton.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,13 +21,15 @@ NS_ASSUME_NONNULL_BEGIN
     @property (weak, nonatomic) IBOutlet UILabel *replyLabel;
     @property (weak, nonatomic) IBOutlet UILabel *retweetLabel;
     @property (weak, nonatomic) IBOutlet UILabel *likesLabel;
-    @property (weak, nonatomic) IBOutlet UIButton *replyButton;
+    @property (weak, nonatomic) IBOutlet ReplyButton *replyButton;
     @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
     @property (weak, nonatomic) IBOutlet UITextView *tweetViewText;
     @property (weak, nonatomic) IBOutlet UIButton *likeButton;
     @property (strong, nonatomic) Tweet *tweet;
     @property (weak, nonatomic) IBOutlet WKWebView *mediaWebView;
     @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
+    @property (weak, nonatomic) IBOutlet UIImageView *mediaImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageViewHeightConstraint;
 
     - (void)refreshData;
 @end

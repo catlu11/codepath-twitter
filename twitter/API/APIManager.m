@@ -56,6 +56,19 @@ static NSString * const baseURLString = @"https://api.twitter.com";
     }];
 }
 
+- (void)postReplyToTweet:(NSString *)text statusId:(NSString *)statusId completion:(void (^)(Tweet *, NSError *))completion {
+    NSString *urlString = @"1.1/statuses/update.json";
+    NSDictionary *parameters = @{@"status":text, @"in_reply_to_status_id":statusId};
+    [self postTweetRequest:urlString parameters:parameters completion:^(Tweet *tweet, NSError *error) {
+        if(tweet) {
+            completion(tweet, nil);
+        }
+        else {
+            completion(nil, error);
+        }
+    }];
+}
+
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
     [self GET:@"1.1/statuses/home_timeline.json"
    parameters:@{@"tweet_mode":@"extended"} progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {

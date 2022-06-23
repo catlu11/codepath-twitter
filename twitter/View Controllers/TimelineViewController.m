@@ -40,7 +40,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     for (int section = 0; section < [self.timelineTableView numberOfSections]; section++) {
-        for (int row = 0; row < 20; row++) {
+        for (int row = 0; row < [self.timelineTableView numberOfRowsInSection:section]; row++) {
             NSIndexPath* path = [NSIndexPath indexPathForRow:row inSection:section];
             TweetCell *cell = [self.timelineTableView cellForRowAtIndexPath:path];
             [cell refreshData];

@@ -15,9 +15,12 @@
 @property (weak, nonatomic) IBOutlet UITextView *replyTextView;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UIImageView *tweetProfileImage;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *tweetTagName;
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mediaImageHeightConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *replyingToLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *mediaImageView;
 @property (weak, nonatomic) IBOutlet WKWebView *mediaWebView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *webViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *userProfileImage;
@@ -49,15 +52,28 @@
     // Set media web view
     self.mediaWebView.scrollView.scrollEnabled = NO;
     if(self.tweet.imageUrlArray.count > 0) {
-        self.webViewHeightConstraint.constant = 200;
         NSString *urlString = [self.tweet.imageUrlArray objectAtIndex:0];
-        NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
-                                                   cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                   timeoutInterval:10.0];
-        [self.mediaWebView loadRequest:mediaRequest];
+        NSURL *url = [NSURL URLWithString:urlString];
+        NSData *urlData = [NSData dataWithContentsOfURL:url];
+        self.mediaImageView.image = [UIImage imageWithData:urlData];
+        
+        double width = self.mediaImageView.frame.size.width;
+        double ratio = width / self.mediaImageView.image.size.width;
+        int frameHeight = (int) round(self.scrollView.frame.size.height * 0.35);
+        int modifiedImgHeight = (int) round(self.mediaImageView.image.size.height * ratio);
+        int minHeight = MIN(frameHeight, modifiedImgHeight);
+
+        if(minHeight > 0) {
+            self.mediaImageHeightConstraint.constant = minHeight;
+        }
+        else {
+            self.mediaImageHeightConstraint.constant = frameHeight;
+        }
+        self.webViewHeightConstraint.constant = 0;
     }
     else if(self.tweet.videoUrlArray.count > 0) {
         self.webViewHeightConstraint.constant = 200;
+        self.mediaImageHeightConstraint.constant = 0;
         NSString *urlString = [self.tweet.videoUrlArray objectAtIndex:0];
         NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
                                                    cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
@@ -66,6 +82,7 @@
     }
     else {
         self.webViewHeightConstraint.constant = 0;
+        self.mediaImageHeightConstraint.constant = 0;
     }
     
     // Set tweet user image

@@ -11,13 +11,15 @@
 #import "DateTools.h"
 #import "APIManager.h"
 #import "TimelineViewController.h"
+#import "ReplyViewController.h"
 
-@interface DetailsViewController ()
+@interface DetailsViewController () <ReplyViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
 @property (weak, nonatomic) IBOutlet WKWebView *mediaWebView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mediaImageHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIImageView *mediaImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mediaWebViewHeight;
+@property (weak, nonatomic) IBOutlet ReplyButton *replyButton;
 @property (strong, nonatomic) IBOutlet UIView *view;
 @end
 
@@ -35,6 +37,24 @@
     NSData *urlData = [NSData dataWithContentsOfURL:url];
     self.profileImageView.image = [UIImage imageWithData:urlData];
     self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 3;
+    
+    // Enable reply button
+    self.replyButton.originalTweet = self.tweet;
+    [self.replyButton addTarget:self action:@selector(beginReply:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (IBAction) beginReply:(id)sender {
+    ReplyButton *buttonClicked = (ReplyButton *)sender;
+    ReplyViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ReplyViewController"];
+    viewController.tweet = buttonClicked.originalTweet;
+    viewController.delegate = self;
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+
+- (void)didReply:(NSString *)idStr {
+    self.tweet.replyCount += 1;
+    self.tweet.replied = YES;
+    [self refreshData];
 }
 
 - (void)refreshData {

@@ -606,7 +606,7 @@
                                 <color key="textColor" systemColor="systemGray2Color"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHZ-9N-qCl">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kHZ-9N-qCl" customClass="ReplyButton">
                                 <rect key="frame" x="285" y="339" width="30" height="30"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="reply-icon"/>
@@ -710,6 +710,7 @@
                         <outlet property="mediaWebView" destination="vi8-Px-B0I" id="fnX-qP-WAb"/>
                         <outlet property="mediaWebViewHeight" destination="Lyi-gT-mjj" id="yqs-eX-COl"/>
                         <outlet property="profileImageView" destination="7We-Iy-1ji" id="IF5-Ir-9r2"/>
+                        <outlet property="replyButton" destination="kHZ-9N-qCl" id="GBB-I3-WCn"/>
                         <outlet property="replyLabel" destination="ELi-Cs-QAN" id="R5a-sr-Vcb"/>
                         <outlet property="retweetButton" destination="unb-l7-oV8" id="QGP-N3-mfk"/>
                         <outlet property="retweetLabel" destination="XhJ-FH-S70" id="REI-ib-VoS"/>

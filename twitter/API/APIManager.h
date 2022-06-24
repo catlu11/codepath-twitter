@@ -16,6 +16,8 @@
 + (instancetype)shared;
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion;
 - (void)getHomeTimelineAfterIdWithCompletion:(NSString *)maxIdStr completion:(void(^)(NSArray *tweets, NSError *error))completion;
+- (void)getRepliesToTweetWithCompletion:(Tweet *)tweet completion:(void(^)(NSArray *tweets, NSError *error))completion;
+- (void)getTweetById:(NSString *)idStr completion:(void(^)(Tweet *tweet, NSError *error))completion;
 - (void)getMentionsWithCompletion:(NSString *)userId completion:(void(^)(NSArray *tweets, NSError *error))completion;
 - (void)getMentionsTimelineAfterIdWithCompletion:(NSString *)maxIdStr completion:(void(^)(NSArray *tweets, NSError *error))completion;
 - (void)postReplyToTweet:(NSString *)text statusId:(NSString *)statusId completion:(void (^)(Tweet *, NSError *))completion;

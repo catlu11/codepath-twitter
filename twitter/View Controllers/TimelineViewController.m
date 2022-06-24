@@ -84,12 +84,12 @@
     [self.timelineTableView reloadData]; // reload to show new tweet
 }
 
-- (void)didReply:(NSString *)idStr {
+- (void)didReply:(Tweet *)tweet {
     for (int section = 0; section < [self.timelineTableView numberOfSections]; section++) {
         for (int row = 0; row < [self.timelineTableView numberOfRowsInSection:section]; row++) {
             NSIndexPath* path = [NSIndexPath indexPathForRow:row inSection:section];
             TweetCell *cell = [self.timelineTableView cellForRowAtIndexPath:path];
-            if([cell.tweet.idStr isEqualToString:idStr]) {
+            if([cell.tweet.idStr isEqualToString:tweet.idStr]) {
                 cell.tweet.replyCount += 1;
                 cell.tweet.replied = YES;
                 [cell refreshData];

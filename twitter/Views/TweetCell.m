@@ -33,7 +33,7 @@
     self.profileButton.clipsToBounds = YES;
     
     // Set username and screen name labels
-    self.userTagLabel.text = self.tweet.user.screenName;
+    self.userTagLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
     self.screenNameLabel.text = self.tweet.user.name;
     
     // Set date label

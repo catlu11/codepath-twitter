@@ -12,7 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ReplyViewControllerDelegate
-- (void)didReply:(NSString *)idStr;
+- (void)didReply:(Tweet *)tweet;
 @end
 
 @interface ReplyViewController : UIViewController

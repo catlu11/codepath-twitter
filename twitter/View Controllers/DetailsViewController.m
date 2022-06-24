@@ -14,7 +14,7 @@
 #import "ReplyViewController.h"
 #import "ProfileViewController.h"
 
-@interface DetailsViewController () <ReplyViewControllerDelegate>
+@interface DetailsViewController () <ReplyViewControllerDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
 @property (weak, nonatomic) IBOutlet WKWebView *mediaWebView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mediaImageHeightConstraint;
@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mediaWebViewHeight;
 @property (weak, nonatomic) IBOutlet ReplyButton *replyButton;
 @property (weak, nonatomic) IBOutlet ProfileButton *profileButton;
+@property (weak, nonatomic) IBOutlet UITableView *replyTableView;
+@property (strong, nonatomic) NSMutableArray *arrayOfReplies;
 @end
 
 @implementation DetailsViewController
@@ -31,6 +33,8 @@
     
     // Set UI elements
     [self refreshData];
+    
+    self.arrayOfReplies = [[NSMutableArray alloc] init];
     
     // Set user profile image
     NSString *URLString = self.tweet.user.profilePicture;
@@ -43,8 +47,27 @@
     // Enable reply button
     self.replyButton.originalTweet = self.tweet;
     [self.replyButton addTarget:self action:@selector(beginReply:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Set up replies table
+    self.replyTableView.dataSource = self;
+    [self fetchReplies];
+    
 }
 
+-(void) fetchReplies {
+//    NSLog(self.tweet.idStr);
+    [[APIManager shared] getRepliesToTweetWithCompletion:self.tweet completion:^(NSArray *tweets, NSError *error) {
+        if (tweets) {
+            NSLog(@"😎😎😎 Successfully loaded reply tweets");
+            for(Tweet *tweet in tweets) {
+                [self.arrayOfReplies addObject:tweet];
+            }
+            [self.replyTableView reloadData];
+        } else {
+            NSLog(@"😫😫😫 Error getting reply tweets: %@", error.localizedDescription);
+        }
+    }];
+}
 - (IBAction)didTapProfile:(id)sender {
     ProfileViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
     viewController.user = self.tweet.user;
@@ -60,15 +83,17 @@
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
-- (void)didReply:(NSString *)idStr {
+- (void)didReply:(Tweet *)tweet {
     self.tweet.replyCount += 1;
     self.tweet.replied = YES;
+    [self.arrayOfReplies insertObject:tweet atIndex:0];
     [self refreshData];
+    [self.replyTableView reloadData];
 }
 
 - (void)refreshData {
     // Set screen name and username
-    self.userTagLabel.text = self.tweet.user.screenName;
+    self.userTagLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];;
     self.screenNameLabel.text = self.tweet.user.name;
     
     // Set date label
@@ -197,6 +222,42 @@
              }
          }];
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UINavigationController *navigationController = self.navigationController;
+    DetailsViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailsViewController"];
+    TweetCell *cell = [self tableView:self.replyTableView cellForRowAtIndexPath:indexPath]; // obtain from table cell to transfer local UI updates
+    viewController.tweet = cell.tweet;
+    [viewController refreshData];
+    [navigationController pushViewController: viewController animated:YES];
+}
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell" forIndexPath:indexPath];
+    
+    // Get tweet and update cell UI
+    Tweet *tweet = self.arrayOfReplies[indexPath.row];
+    cell.tweet = tweet;
+    [cell refreshData];
+    
+    // Enable reply button
+    cell.replyButton.originalTweet = tweet;
+    [cell.replyButton addTarget:self action:@selector(beginReply:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Enable profile clicking
+    cell.profileButton.user = tweet.user;
+    [cell.profileButton addTarget:self action:@selector(viewProfile:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // Remove selection style
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    return cell;
+}
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    NSLog(@"%i", self.arrayOfReplies.count);
+    return self.arrayOfReplies.count; // home timeline should show up to 20 tweets
 }
 
 @end

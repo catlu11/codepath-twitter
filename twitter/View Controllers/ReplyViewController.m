@@ -83,7 +83,7 @@
     self.ownUserButton.clipsToBounds = YES;
     
     // Set username and screen name labels
-    self.tweetTagName.text = self.tweet.user.screenName;
+    self.tweetTagName.text = [@"@" stringByAppendingString:self.tweet.user.screenName];;
     self.userName.text = self.tweet.user.name;
     
     // Set tweet content label
@@ -135,14 +135,13 @@
 - (IBAction)replyButton:(id)sender {
     NSString *mention = [@"@" stringByAppendingString:self.tweet.user.screenName];
     NSString *replyText = [[mention stringByAppendingString:@" "] stringByAppendingString:self.replyTextView.text];
-    NSLog(replyText);
     [[APIManager shared] postReplyToTweet:replyText statusId:self.tweet.idStr completion:^(Tweet *tweet, NSError *error) {
         if(error){
             NSLog(@"Error replying to Tweet: %@", error.localizedDescription);
         }
         else{
             NSLog(@"Reply Tweet Success!");
-            [self.delegate didReply:self.tweet.idStr];
+            [self.delegate didReply:tweet];
         }
     }];
     [self dismissViewControllerAnimated:YES completion:nil];

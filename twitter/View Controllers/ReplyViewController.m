@@ -90,7 +90,7 @@
     self.tweetTextView.text = self.tweet.text;
     
     // Set replying to label
-    self.replyingToLabel.text = [@"Replying to " stringByAppendingString:self.tweet.user.screenName];
+    self.replyingToLabel.text = [[@"Replying to " stringByAppendingString:self.tweet.user.screenName] stringByAppendingString:@"..."];
 
     // Set media web view
     self.mediaWebView.scrollView.scrollEnabled = NO;

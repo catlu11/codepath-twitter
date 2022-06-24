@@ -37,7 +37,7 @@ The following **stretch** features are implemented:
   - Header view: picture and tagline
   - Basic stats: #tweets, #following, #followers
 - [x] Switch between **timeline**, **mentions**, or **profile view** through a tab bar (**3 points**)
-- [ ] Profile Page: pulling down the profile page should blur and resize the header image. (**4 points**)
+- [x] Profile Page: pulling down the profile page should blur and resize the header image. (**4 points**)
 
 The following **additional** features are implemented:
 

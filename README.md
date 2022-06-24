@@ -50,15 +50,16 @@ Please list two areas of the assignment you'd like to **discuss further with you
 2. Segues vs. delegate view controllers, pros and cons of either navigation approach
 
 ## Video Walkthrough
-The first video is a quick demo of most of the app's features. The image shows the warning that appears when composition exceeds the accepted character count. The second video demonstrates the ability to handle different orientations and the refresh feature. 
+The first video is a quick demo of most of the app's features. The image shows the warning that appears when composition exceeds the accepted character count. The second video demonstrates the ability to handle different orientations and the refresh feature. The third video shows all the remaining stretch futures.
 <p float="left">
 <img src='Demo/twitter1.gif' title='Video Walkthrough' alt='Video Walkthrough' width='200'/> 
 <img src='Demo/characterWarning.png' title='Warning Walkthrough' alt='Refresh Error Walkthrough' width='200'/>
 <img src='Demo/twitter2.gif' title='Refresh Walkthrough' alt='Refresh Error Walkthrough' width='320'/>
+<img src='Demo/twitterStretch.gif' title='Video Walkthrough' alt='Stretch Walkthrough' width='200'/> 
 </p>
 
 ## Notes
-While the app's layout should function on most devices, some devices were not simulated and thus may not display entirely as intended. Some stretch features are also still in progress.
+While the app's layout should function on most devices, some devices were not simulated and thus may not display entirely as intended. 
 
 ## Credits
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library

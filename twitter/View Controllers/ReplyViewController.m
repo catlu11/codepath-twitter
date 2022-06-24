@@ -54,12 +54,14 @@
 - (IBAction)didTapTweetUser:(id)sender {
     ProfileViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
     viewController.user = self.tweet.user;
+    [viewController makeBackVisible];
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
 - (IBAction)didTapOwnUser:(id)sender {
     ProfileViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
     viewController.user = self.ownUser;
+    [viewController makeBackVisible];
     [self presentViewController:viewController animated:YES completion:nil];
 }
 

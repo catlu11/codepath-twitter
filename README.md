@@ -36,7 +36,7 @@ The following **stretch** features are implemented:
 - [x] Click on a Profile image to reveal another user's profile page, including:
   - Header view: picture and tagline
   - Basic stats: #tweets, #following, #followers
-- [ ] Switch between **timeline**, **mentions**, or **profile view** through a tab bar (**3 points**)
+- [x] Switch between **timeline**, **mentions**, or **profile view** through a tab bar (**3 points**)
 - [ ] Profile Page: pulling down the profile page should blur and resize the header image. (**4 points**)
 
 The following **additional** features are implemented:

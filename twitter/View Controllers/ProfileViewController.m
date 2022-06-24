@@ -7,6 +7,7 @@
 //
 
 #import "ProfileViewController.h"
+#import "APIManager.h"
 
 @interface ProfileViewController ()
 
@@ -18,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *tweetCount;
 @property (weak, nonatomic) IBOutlet UILabel *followingCount;
 @property (weak, nonatomic) IBOutlet UILabel *followersCount;
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (assign, nonatomic) BOOL *isBackVisible;
 
 @end
 
@@ -25,7 +28,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (self.user == nil) {
+        [[APIManager shared] getCurrentUser:^(User *user, NSError *error) {
+             if(error) {
+                  NSLog(@"Error fetching user information: %@", error.localizedDescription);
+                 
+             }
+             else{
+                 NSLog(@"Successfully fetched user info: %@", user.name);
+                 self.user = user;
+                 [self setUI];
+             }
+         }];
+    }
+    else {
+        [self setUI];
+    }
+}
 
+- (void) setUI {
+    if(self.isBackVisible) {
+        self.backButton.hidden = NO;
+    }
+    else {
+        self.backButton.hidden = YES;
+    }
+        
     self.userName.text = self.user.name;
     self.tagName.text = self.user.screenName;
     self.bioText.text = self.user.bioText;
@@ -49,4 +77,7 @@
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
+- (void)makeBackVisible {
+    self.isBackVisible = YES;
+}
 @end

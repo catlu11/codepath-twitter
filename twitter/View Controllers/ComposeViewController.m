@@ -67,14 +67,18 @@
         self.tweetButton.enabled = YES;
     }
 }
+
 - (IBAction)didTapProfile:(id)sender {
     ProfileViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
     viewController.user = self.user;
+    NSLog(@"toggled back");
+    [viewController makeBackVisible];
     [self presentViewController:viewController animated:YES completion:nil];
-}
-
-- (IBAction)closeBtnAction:(id)sender {
-    [self dismissViewControllerAnimated:true completion:nil];
+//    ProfileButton *buttonClicked = (ProfileButton *)sender;
+//    UITabBarController *tabController = self.tabBarController;
+//    ProfileViewController *viewController = tabController.viewControllers[1];
+//    viewController.user = buttonClicked.user;
+//    tabController.selectedViewController = viewController;
 }
 
 - (IBAction)tweetBtnAction:(id)sender {

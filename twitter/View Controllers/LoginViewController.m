@@ -28,6 +28,7 @@
 - (IBAction)didTapLogin:(id)sender {
     [[APIManager shared] loginWithCompletion:^(BOOL success, NSError *error) {
         if (success) {
+            NSLog(@"login segue performed");
             [self performSegueWithIdentifier:@"loginSegue" sender:nil];
         } else {
             NSLog(@"%@", error.localizedDescription);

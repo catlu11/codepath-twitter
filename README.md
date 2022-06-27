@@ -50,7 +50,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 2. Segues vs. delegate view controllers, pros and cons of either navigation approach
 
 ## Video Walkthrough
-The first video is a quick demo of most of the app's features. The image shows the warning that appears when composition exceeds the accepted character count. The second video demonstrates the ability to handle different orientations and the refresh feature. The third video shows all the remaining stretch futures.
+The first video is a quick demo of most of the app's features. The image shows the warning that appears when composition exceeds the accepted character count. The second video demonstrates the ability to handle different orientations and the refresh feature. The third video shows all the remaining stretch features.
 <p float="left">
 <img src='Demo/twitter1.gif' title='Video Walkthrough' alt='Video Walkthrough' width='200'/> 
 <img src='Demo/characterWarning.png' title='Warning Walkthrough' alt='Refresh Error Walkthrough' width='200'/>

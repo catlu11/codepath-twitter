@@ -20,12 +20,10 @@
 - (void)getTweetById:(NSString *)idStr completion:(void(^)(Tweet *tweet, NSError *error))completion;
 - (void)getMentionsWithCompletion:(NSString *)userId completion:(void(^)(NSArray *tweets, NSError *error))completion;
 - (void)getMentionsTimelineAfterIdWithCompletion:(NSString *)maxIdStr completion:(void(^)(NSArray *tweets, NSError *error))completion;
-- (void)postReplyToTweet:(NSString *)text statusId:(NSString *)statusId completion:(void (^)(Tweet *, NSError *))completion;
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion;
-- (void)favorite:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
-- (void)unfavorite:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
-- (void)retweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
-- (void)unretweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
+- (void)postReplyToTweet:(NSString *)text statusId:(NSString *)statusId completion:(void (^)(Tweet *, NSError *))completion;
+- (void)favorite:(BOOL *)favorited tweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
+- (void)retweet:(BOOL *)retweeted tweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion;
 - (void)getCurrentUser: (void (^)(User *, NSError *))completion;
 - (void)getUserInfo:(NSString *)screenName completion:(void(^)(User *user, NSError *error))completion;
 

@@ -74,11 +74,6 @@
     NSLog(@"toggled back");
     [viewController makeBackVisible];
     [self presentViewController:viewController animated:YES completion:nil];
-//    ProfileButton *buttonClicked = (ProfileButton *)sender;
-//    UITabBarController *tabController = self.tabBarController;
-//    ProfileViewController *viewController = tabController.viewControllers[1];
-//    viewController.user = buttonClicked.user;
-//    tabController.selectedViewController = viewController;
 }
 
 - (IBAction)tweetBtnAction:(id)sender {
@@ -89,9 +84,9 @@
         else{
             [self.delegate didTweet:tweet];
             NSLog(@"Compose Tweet Success!");
+            [self dismissViewControllerAnimated:true completion:nil];
         }
     }];
-    [self dismissViewControllerAnimated:true completion:nil];
 }
 
 @end

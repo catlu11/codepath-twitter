@@ -11,6 +11,9 @@
 #import "DateTools.h"
 #import "ProfileViewController.h"
 
+#define MEDIA_PREVIEW_HEIGHT 200
+#define MEDIA_TIMEOUT 10.0
+
 @implementation TweetCell
 
 - (void)awakeFromNib {
@@ -34,14 +37,14 @@
     
     // Set username and screen name labels
     self.userTagLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
-    self.screenNameLabel.text = self.tweet.user.name;
+    self.nameLabel.text = self.tweet.user.name;
     
     // Set date label
-    if ([self.tweet.date isEarlierThan:[[NSDate date] dateBySubtractingMonths:1]]) {
+    if ([self.tweet.createdAtDate isEarlierThan:[[NSDate date] dateBySubtractingMonths:1]]) {
         self.dateLabel.text = self.tweet.createdAtString;
     }
     else {
-        self.dateLabel.text = self.tweet.date.shortTimeAgoSinceNow;
+        self.dateLabel.text = self.tweet.createdAtDate.shortTimeAgoSinceNow;
     }
     
     // Set tweet content label
@@ -82,13 +85,13 @@
         self.webViewHeightConstraint.constant = 0;
     }
     else if(self.tweet.videoUrlArray.count > 0) {
-        self.webViewHeightConstraint.constant = 200;
-        self.imageViewHeightConstraint.constant = 0;
         NSString *urlString = [self.tweet.videoUrlArray objectAtIndex:0];
         NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
                                                    cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                   timeoutInterval:10.0];
+                                                   timeoutInterval:MEDIA_TIMEOUT];
         [self.mediaWebView loadRequest:mediaRequest];
+        self.webViewHeightConstraint.constant = MEDIA_PREVIEW_HEIGHT;
+        self.imageViewHeightConstraint.constant = 0;
     }
     else {
         self.imageViewHeightConstraint.constant = 0;
@@ -97,65 +100,31 @@
 }
 
 - (IBAction)didTapRetweet:(id)sender {
-    // retweet
-    if (self.tweet.retweeted) {
-        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
-                 self.tweet.retweeted = NO;
-                 self.tweet.retweetCount -= 1;
-                 [self refreshData];
-             }
-         }];
-    }
-    // unretweet
-    else {
-        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-                 self.tweet.retweeted = YES;
-                 self.tweet.retweetCount += 1;
-                 [self refreshData];
-             }
-         }];
-    }
+    [[APIManager shared] retweet:self.tweet.retweeted tweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+         if(error){
+              NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+         }
+         else{
+             NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
+             self.tweet.retweetCount += (self.tweet.retweeted ? -1 : 1);
+             self.tweet.retweeted = !self.tweet.retweeted;
+             [self refreshData];
+         }
+     }];
 }
 
 - (IBAction)didTapFavorite:(id)sender {
-    // favorite
-    if (self.tweet.favorited) {
-        [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
-                 self.tweet.favorited = NO;
-                 self.tweet.favoriteCount -= 1;
-                 [self refreshData];
-             }
-         }];
-    }
-    // unfavorite
-    else {
-        [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-                 self.tweet.favorited = YES;
-                 self.tweet.favoriteCount += 1;
-                 [self refreshData];
-             }
-         }];
-    }
+    [[APIManager shared] favorite:self.tweet.favorited tweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+         if(error){
+              NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+         }
+         else{
+             NSLog(@"Successfully favoriting the following Tweet: %@", tweet.text);
+             self.tweet.favoriteCount += (self.tweet.favorited ? -1 : 1);
+             self.tweet.favorited = !self.tweet.favorited;
+             [self refreshData];
+         }
+     }];
 }
 
 @end

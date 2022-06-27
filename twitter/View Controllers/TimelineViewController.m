@@ -17,8 +17,7 @@
 #import "ProfileViewController.h"
 
 @interface TimelineViewController () <UITableViewDataSource, ComposeViewControllerDelegate, ReplyViewControllerDelegate, UITableViewDelegate>
-    @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
-
+@property (strong, nonatomic) NSMutableArray *arrayOfTweets;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
@@ -79,11 +78,13 @@
     }];
 }
 
+#pragma mark - ComposeViewController
 - (void)didTweet:(Tweet *)tweet {
     [self.arrayOfTweets insertObject:tweet atIndex:0];
     [self.timelineTableView reloadData]; // reload to show new tweet
 }
 
+#pragma mark - ReplyViewController
 - (void)didReply:(Tweet *)tweet {
     for (int section = 0; section < [self.timelineTableView numberOfSections]; section++) {
         for (int row = 0; row < [self.timelineTableView numberOfRowsInSection:section]; row++) {

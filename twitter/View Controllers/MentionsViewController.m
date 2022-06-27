@@ -17,9 +17,9 @@
 #import "ProfileViewController.h"
 
 @interface MentionsViewController () <UITableViewDataSource, ComposeViewControllerDelegate, ReplyViewControllerDelegate, UITableViewDelegate>
-    @property (strong, nonatomic) NSMutableArray *arrayOfTweets;
-    @property (strong, nonatomic) UIRefreshControl *refreshControl;
-    @property (strong, nonatomic) NSString *userId;
+@property (strong, nonatomic) NSMutableArray *arrayOfTweets;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) NSString *userId;
 @end
 
 @implementation MentionsViewController
@@ -108,10 +108,6 @@
             }
         }
     }
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
 }
 
 - (void)beginRefresh:(UIRefreshControl *)refreshControl {

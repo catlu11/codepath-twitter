@@ -427,12 +427,12 @@
                                             <outlet property="likesLabel" destination="uQj-bs-O9v" id="x5D-yA-Xo5"/>
                                             <outlet property="mediaImageView" destination="BsW-pS-8JN" id="GeF-tr-dfO"/>
                                             <outlet property="mediaWebView" destination="oZI-pJ-pHU" id="eJT-i9-ojZ"/>
+                                            <outlet property="nameLabel" destination="Cqh-ky-GBo" id="agC-6F-fOO"/>
                                             <outlet property="profileButton" destination="jeT-1y-2xG" id="1iK-TV-zkM"/>
                                             <outlet property="replyButton" destination="LVW-Nh-SMX" id="Z7Y-EZ-Ey7"/>
                                             <outlet property="replyLabel" destination="22L-Tw-Xwu" id="ybh-Ed-gWJ"/>
                                             <outlet property="retweetButton" destination="Fep-sQ-6RZ" id="iWu-un-7cJ"/>
                                             <outlet property="retweetLabel" destination="05H-BQ-gN3" id="2Ai-Y6-Bgg"/>
-                                            <outlet property="screenNameLabel" destination="Cqh-ky-GBo" id="abb-KG-sGE"/>
                                             <outlet property="tweetViewText" destination="tgU-L7-MQa" id="tqS-WG-CGB"/>
                                             <outlet property="userTagLabel" destination="Dic-K3-tpg" id="5dM-nk-ull"/>
                                             <outlet property="webViewHeightConstraint" destination="aTd-td-3AO" id="XoI-3F-Ihl"/>
@@ -1317,13 +1317,13 @@
                         <outlet property="mediaImageView" destination="Zka-54-RjS" id="IE3-as-vLQ"/>
                         <outlet property="mediaWebView" destination="vi8-Px-B0I" id="fnX-qP-WAb"/>
                         <outlet property="mediaWebViewHeight" destination="Lyi-gT-mjj" id="yqs-eX-COl"/>
+                        <outlet property="nameLabel" destination="LC6-G0-dVf" id="sP7-8w-HG5"/>
                         <outlet property="profileButton" destination="XXO-LT-LZv" id="Mds-DH-B1E"/>
                         <outlet property="replyButton" destination="kHZ-9N-qCl" id="GBB-I3-WCn"/>
                         <outlet property="replyLabel" destination="ELi-Cs-QAN" id="R5a-sr-Vcb"/>
                         <outlet property="replyTableView" destination="0T1-h0-zhF" id="dY1-be-yQp"/>
                         <outlet property="retweetButton" destination="unb-l7-oV8" id="QGP-N3-mfk"/>
                         <outlet property="retweetLabel" destination="XhJ-FH-S70" id="REI-ib-VoS"/>
-                        <outlet property="screenNameLabel" destination="LC6-G0-dVf" id="kA9-om-CCs"/>
                         <outlet property="tweetTextView" destination="8nn-cH-gU5" id="MiO-TH-9zs"/>
                         <outlet property="userTagLabel" destination="ydp-zB-x1k" id="ReY-aT-G5s"/>
                         <outlet property="view" destination="S4v-ET-FJq" id="Tjl-a5-0Xo"/>

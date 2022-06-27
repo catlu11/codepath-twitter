@@ -14,6 +14,10 @@
 #import "ReplyViewController.h"
 #import "ProfileViewController.h"
 
+#define MEDIA_PREVIEW_HEIGHT 200
+#define MEDIA_TIMEOUT 10.0
+#define IMAGE_HEIGHT_RATIO 0.35
+
 @interface DetailsViewController () <ReplyViewControllerDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
 @property (weak, nonatomic) IBOutlet WKWebView *mediaWebView;
@@ -51,11 +55,9 @@
     // Set up replies table
     self.replyTableView.dataSource = self;
     [self fetchReplies];
-    
 }
 
 -(void) fetchReplies {
-//    NSLog(self.tweet.idStr);
     [[APIManager shared] getRepliesToTweetWithCompletion:self.tweet completion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded reply tweets");
@@ -93,15 +95,15 @@
 
 - (void)refreshData {
     // Set screen name and username
-    self.userTagLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];;
-    self.screenNameLabel.text = self.tweet.user.name;
+    self.userTagLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
+    self.nameLabel.text = self.tweet.user.name;
     
     // Set date label
-    if ([self.tweet.date isEarlierThan:[[NSDate date] dateBySubtractingMonths:1]]) {
+    if ([self.tweet.createdAtDate isEarlierThan:[[NSDate date] dateBySubtractingMonths:1]]) {
         self.dateLabel.text = self.tweet.createdAtString;
     }
     else {
-        self.dateLabel.text = self.tweet.date.shortTimeAgoSinceNow;
+        self.dateLabel.text = self.tweet.createdAtDate.shortTimeAgoSinceNow;
     }
     
     // Set tweet content label
@@ -137,7 +139,7 @@
         
         double width = self.mediaImageView.frame.size.width;
         double ratio = width / self.mediaImageView.image.size.width;
-        int frameHeight = (int) round(self.view.frame.size.height * 0.35);
+        int frameHeight = (int) round(self.view.frame.size.height * IMAGE_HEIGHT_RATIO);
         int modifiedImgHeight = (int) round(self.mediaImageView.image.size.height * ratio);
         int minHeight = MIN(frameHeight, modifiedImgHeight);
 
@@ -150,12 +152,12 @@
         self.mediaWebViewHeight.constant = 0;
     }
     else if(self.tweet.videoUrlArray.count > 0) {
-        self.mediaWebViewHeight.constant = 200;
+        self.mediaWebViewHeight.constant = MEDIA_PREVIEW_HEIGHT;
         self.mediaImageHeightConstraint.constant = 0;
         NSString *urlString = [self.tweet.videoUrlArray objectAtIndex:0];
         NSURLRequest *mediaRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
                                                    cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                                   timeoutInterval:10.0];
+                                                   timeoutInterval:MEDIA_TIMEOUT];
         [self.mediaWebView loadRequest:mediaRequest];
     }
     else {
@@ -164,64 +166,30 @@
     }
 }
 - (IBAction)didTapRetweet:(id)sender {
-    // retweet
-    if (self.tweet.retweeted) {
-        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unretweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
-                 self.tweet.retweeted = NO;
-                 self.tweet.retweetCount -= 1;
-                 [self refreshData];
-             }
-         }];
-    }
-    // unretweet
-    else {
-        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-                 self.tweet.retweeted = YES;
-                 self.tweet.retweetCount += 1;
-                 [self refreshData];
-             }
-         }];
-    }
+    [[APIManager shared] retweet:self.tweet.retweeted tweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+         if(error){
+              NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+         }
+         else{
+             NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
+             self.tweet.retweetCount += (self.tweet.retweeted ? -1 : 1);
+             self.tweet.retweeted = !self.tweet.retweeted;
+             [self refreshData];
+         }
+     }];
 }
 - (IBAction)didTapLike:(id)sender {
-    // favorite
-    if (self.tweet.favorited) {
-        [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error unfavoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully unfavorited the following Tweet: %@", tweet.text);
-                 self.tweet.favorited = NO;
-                 self.tweet.favoriteCount -= 1;
-                 [self refreshData];
-             }
-         }];
-    }
-    // unfavorite
-    else {
-        [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-             if(error){
-                  NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-             }
-             else{
-                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-                 self.tweet.favorited = YES;
-                 self.tweet.favoriteCount += 1;
-                 [self refreshData];
-             }
-         }];
-    }
+    [[APIManager shared] favorite:self.tweet.favorited tweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+         if(error){
+              NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+         }
+         else{
+             NSLog(@"Successfully favoriting the following Tweet: %@", tweet.text);
+             self.tweet.favoriteCount += (self.tweet.favorited ? -1 : 1);
+             self.tweet.favorited = !self.tweet.favorited;
+             [self refreshData];
+         }
+     }];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

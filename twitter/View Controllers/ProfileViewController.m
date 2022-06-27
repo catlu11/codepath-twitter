@@ -80,12 +80,7 @@
 }
 
 - (void) setUI {
-    if(self.isBackVisible) {
-        self.backButton.hidden = NO;
-    }
-    else {
-        self.backButton.hidden = YES;
-    }
+    self.backButton.hidden = !self.isBackVisible;
     
     [self.headerImage addSubview:self.blurEffect];
         

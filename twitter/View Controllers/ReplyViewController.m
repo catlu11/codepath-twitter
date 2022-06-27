@@ -16,7 +16,7 @@
 @interface ReplyViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *replyTextView;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
-@property (strong, nonatomic) User *ownUser;
+@property (strong, nonatomic) User *user;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UILabel *tweetTagName;
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
@@ -45,7 +45,7 @@
          }
          else{
              NSLog(@"Successfully fetched user info: %@", user.name);
-             self.ownUser = user;
+             self.user = user;
              [self refreshData];
          }
      }];
@@ -60,7 +60,7 @@
 
 - (IBAction)didTapOwnUser:(id)sender {
     ProfileViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"ProfileViewController"];
-    viewController.user = self.ownUser;
+    viewController.user = self.user;
     [viewController makeBackVisible];
     [self presentViewController:viewController animated:YES completion:nil];
 }
@@ -75,7 +75,7 @@
     self.tweetUserButton.clipsToBounds = YES;
     
     // Set own user image
-    NSString *userURLString = self.ownUser.profilePicture;
+    NSString *userURLString = self.user.profilePicture;
     NSURL *userUrl = [NSURL URLWithString:userURLString];
     NSData *userUrlData = [NSData dataWithContentsOfURL:userUrl];
     [self.ownUserButton setBackgroundImage: [UIImage imageWithData:userUrlData] forState:UIControlStateNormal];

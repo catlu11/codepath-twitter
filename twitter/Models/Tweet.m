@@ -23,11 +23,7 @@
             dictionary = originalTweet;
         }
         self.idStr = dictionary[@"id_str"];
-        if([dictionary valueForKey:@"full_text"] != nil) {
-            self.text = dictionary[@"full_text"]; // uses full text if Twitter API provided it
-        } else {
-            self.text = dictionary[@"text"]; // fallback to regular text that Twitter API provided
-        }
+        self.text = [dictionary valueForKey:@"full_text"] ? : dictionary[@"text"];
         self.favoriteCount = [dictionary[@"favorite_count"] intValue];
         self.favorited = [dictionary[@"favorited"] boolValue];
         self.retweetCount = [dictionary[@"retweet_count"] intValue];
@@ -50,7 +46,7 @@
         formatter.timeStyle = NSDateFormatterNoStyle;
         
         // convert Date to String
-        self.date = date;
+        self.createdAtDate = date;
         self.createdAtString = [formatter stringFromDate:date];
         
         // obtain media URLs
